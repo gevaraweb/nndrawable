@@ -1,3 +1,7 @@
+/**
+ * @author Алмаз Вильданов / alvild@mail.com
+ */
+ 
 var nndraw = {};
 
 nndraw.Layer = function(count, form, StrokeColor, FillColor) {
