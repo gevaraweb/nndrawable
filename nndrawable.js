@@ -162,6 +162,22 @@ nndraw.NN.prototype = {
                     if (jj < this.dim_layers.length - 1) this.DrawLine(this.ctx, x_center, y_center, x_next, y_next, this.lineWidth, this.lineStrokeColor, mode);
                 }
 
+            }
+
+        }
+		
+        for (let jj = 0; jj < this.dim_layers.length; jj++) {
+
+            let count = this.dim_layers[jj];
+            let x_center = hx + R + jj * (2 * R + rx);
+            let bloky = count * 2 * R + ry * (count - 1);
+            let biasy = (sizey - bloky) / 2;
+
+            let count_next = this.dim_layers[jj + 1];
+
+            for (let j = 0; j < count; j++) {
+                let y_center = biasy + R + 2 * R * j + ry * j;
+
                 if (arr_form[jj] == "rectangle") {
                     this.DrawRect(this.ctx, x_center, y_center, R, R, this.lineWidth, arr_StrokeColor[jj], arr_FillColor[jj], mode);
                 } else {
@@ -169,7 +185,9 @@ nndraw.NN.prototype = {
                 }
             }
 
-        }
+        }		
+		
+		
         if (mod != "canvas") {
             div.innerHTML = '<svg width="' + sizex + '" height="' + sizey + '">' + this._html + '</svg>';
             div.style.width = sizex + "px";
