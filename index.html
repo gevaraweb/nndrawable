@@ -3,26 +3,59 @@
 <head>
 	<title>nndrawable library for drawing neural networks</title>
 	<meta charset="utf-8">
-	<style>
-		    body {
-			     margin: 5;
-			     padding: 0;			 
-			}
-	</style>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="nndrawable.js"></script>
-
 </head>
 <body>
-	<p>Здесь будет нейронная сеть</p>
-	<div id="for_nn1"></div>
-	<p>Окончание нейронной сети</p>
-	<p>Здесь будет нейронная сеть - 2</p>
-	<div id="for_nn2"></div>
-	<p>Окончание нейронной сети - 2</p>
-	<p>Здесь будет нейронная сеть - 3</p>
-	<div id="for_nn3"></div>
-	<p>Окончание нейронной сети - 3</p>	
+	<p>Здесь представлены примеры использования библиотеки. 
+	<p>Интерфейс для рисования нейронной сети (без кодинга) можно посмотреть <a href="index2.html">здесь</a>.
+	<p>
+	<pre>
+	let nn1 = new nndraw.NN();
+	
+	let layer1 = new nndraw.Layer(7);
+	nn1.add(layer1);
+	let layer2 = new nndraw.Layer(5);
+	nn1.add(layer2);
+	let layer3 = new nndraw.Layer(4);
+	nn1.add(layer3);
+	let layer4 = new nndraw.Layer(1);
+	nn1.add(layer4);
 
+	var div1 = document.getElementById('for_nn1');
+	nn1.draw(div1);
+	</pre>
+	<div id="for_nn1"></div>
+	<pre>
+	let nn2 = new nndraw.NN();
+	
+	nn2.radius = 18;
+	nn2.canvasFillColor = "#FFD5D6";
+	nn2.lineWidth = 2;
+	nn2.lineStrokeColor = "blue";
+	nn2.rx = 60;
+
+	let layer = new nndraw.Layer(8, "rectangle", "#000000", "#EFEE0F");
+	nn2.add(layer);
+	layer = new nndraw.Layer(6, "circle", "#000000", "#88D03F");
+	nn2.add(layer);
+	layer = new nndraw.Layer(5, "circle", "#000000", "#F49042");
+	nn2.add(layer);
+	layer = new nndraw.Layer(3, "circle", "#000000", "#ADD8E6");
+	nn2.add(layer);
+	layer = new nndraw.Layer(1, "circle", "#000000", "#FFF2CD");
+	nn2.add(layer);
+
+	var div2 = document.getElementById('for_nn2');
+	nn2.draw(div2, 'canvas');
+	</pre>
+	<div id="for_nn2"></div>
+	<pre>
+	var div3 = document.getElementById('for_nn3');
+	nn2.draw(div3, 'svg');
+	</pre>
+	<div id="for_nn3"></div>
+<div id="footer">© gevaraweb</div>
 <script type="text/javascript">
 
 	let nn1 = new nndraw.NN();
