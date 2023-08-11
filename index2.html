@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>nndrawable library for drawing neural networks</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="nndrawable.js"></script>
+
+</head>
+<body>
+	<p>Здесь представлен интерфейс для рисования нейронной сети (без кодинга).
+	<p>Примеры же использования библиотеки можно посмотреть <a href="index.html">здесь</a>.
+<div id="example"> 
+	<div id="block1"> 
+	Укажите параметры нейронной сети (они кликабельны) и нажмите Enter<p>
+	<table id="table">
+	   <tr>
+		  <th>Layer</th>
+		  <th>Use</th>
+		  <th>Count</th>
+		  <th>Square</th>
+		  <th>Color</th>
+		  <th>All</th>
+	   </tr>
+	   <tr>
+		  <td>Первый</td>
+		  <td><input type="checkbox" id="layer1" checked></td>
+		  <td contenteditable="true">7</td>
+		  <td><input type="checkbox" checked></td>
+		  <td id="td_color1"></td>
+		  <td><input type="checkbox"></td>
+	   </tr>
+	   <tr>
+		  <td>Второй</td>
+		  <td><input type="checkbox" id="layer2" checked></td>
+		  <td contenteditable="true">9</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color2"></td>
+		  <td><input type="checkbox"></td>
+	   </tr>
+	   <tr>
+		  <td>Третий</td>
+		  <td><input type="checkbox" id="layer3" checked></td>
+		  <td contenteditable="true">6</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color3"></td>
+		  <td><input type="checkbox"></td>
+	   </tr>
+	   <tr>
+		  <td>Четвертый</td>
+		  <td><input type="checkbox" id="layer4" checked></td>
+		  <td contenteditable="true">5</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color4"></td>
+		  <td><input type="checkbox" checked></td>
+	   </tr>
+	   <tr>
+		  <td>Пятый</td>
+		  <td><input type="checkbox" id="layer5"></td>
+		  <td contenteditable="true">3</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color5"></td>
+		  <td><input type="checkbox" checked></td>
+	   </tr>
+	   <tr>
+		  <td>Шестой</td>
+		  <td><input type="checkbox" id="layer6"></td>
+		  <td contenteditable="true">2</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color6"></td>
+		  <td><input type="checkbox" checked></td>
+	   </tr>
+	   <tr>
+		  <td>Седьмой</td>
+		  <td><input type="checkbox" id="layer6"></td>
+		  <td contenteditable="true">1</td>
+		  <td><input type="checkbox"></td>
+		  <td id="td_color7"></td>
+		  <td><input type="checkbox" checked></td>
+	   </tr>
+	</table>
+	<p>
+	<label for="radius">Размер радиуса изображения нейрона:</label>
+	<input type="number" id="radius" name="radius" min="10" max="50" value="18"></input>
+	<p>
+	<label for="rx">Величина расстояния между слоями:</label>
+	<input type="number" id="rx" name="rx" min="30" max="100" value="60"></input>
+	<p>
+	<label for="lineWidth">Толщина линий:</label>
+	<input type="number" id="lineWidth" name="lineWidth" min="1" max="10" value="1"></input>	
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Формат:
+	<input type="radio" name="mode" id="mode_canvas" value="canvas">canvas
+	<input type="radio" name="mode" value="svg" checked>SVG<p>
+	<label for="colorLine">Цвет линий:</label>	
+	<span id="colorLine"></span>
+	</div>
+	<div id="for_nn0"></div>
+</div>
+<div id="footer">© gevaraweb</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+	
+	let colors = ["IndianRed", 
+					"LightCoral", 
+					"Salmon", 
+					"DarkSalmon", 
+					"LightSalmon", 
+					"Crimson", 
+					"Red", 
+					"FireBrick", 
+					"DarkRed", 
+					"Pink", 
+					"LightPink", 
+					"HotPink", 
+					"DeepPink", 
+					"MediumVioletRed", 
+					"PaleVioletRed", 
+					"LightSalmon", 
+					"Coral", 
+					"Tomato", 
+					"OrangeRed", 
+					"DarkOrange", 
+					"Orange", 
+					"Gold", 
+					"Yellow", 
+					"LightYellow", 
+					"LemonChiffon", 
+					"LightGoldenrodYellow", 
+					"PapayaWhip", 
+					"Moccasin", 
+					"PeachPuff", 
+					"PaleGoldenrod", 
+					"Khaki", 
+					"DarkKhaki", 
+					"Lavender", 
+					"Thistle", 
+					"Plum", 
+					"Violet", 
+					"Orchid", 
+					"Fuchsia", 
+					"Magenta", 
+					"MediumOrchid", 
+					"MediumPurple", 
+					"BlueViolet", 
+					"DarkViolet", 
+					"DarkOrchid", 
+					"DarkMagenta", 
+					"Purple", 
+					"Indigo", 
+					"SlateBlue", 
+					"DarkSlateBlue", 
+					"Cornsilk", 
+					"BlanchedAlmond", 
+					"Bisque", 
+					"NavajoWhite", 
+					"Wheat", 
+					"BurlyWood", 
+					"Tan", 
+					"RosyBrown", 
+					"SandyBrown", 
+					"Goldenrod", 
+					"DarkGoldenRod", 
+					"Peru", 
+					"Chocolate", 
+					"SaddleBrown", 
+					"Sienna", 
+					"Brown", 
+					"Maroon", 
+					"GreenYellow", 
+					"Chartreuse", 
+					"LawnGreen", 
+					"Lime", 
+					"LimeGreen", 
+					"PaleGreen", 
+					"LightGreen", 
+					"MediumSpringGreen", 
+					"SpringGreen", 
+					"MediumSeaGreen", 
+					"SeaGreen", 
+					"ForestGreen", 
+					"Green", 
+					"DarkGreen", 
+					"YellowGreen", 
+					"OliveDrab", 
+					"Olive", 
+					"DarkOliveGreen", 
+					"MediumAquamarine", 
+					"DarkSeaGreen", 
+					"LightSeaGreen", 
+					"DarkCyan", 
+					"Teal", 
+					"Aqua", 
+					"Cyan", 
+					"LightCyan", 
+					"PaleTurquoise", 
+					"Aquamarine", 
+					"Turquoise", 
+					"MediumTurquoise", 
+					"DarkTurquoise", 
+					"CadetBlue", 
+					"SteelBlue", 
+					"LightSteelBlue", 
+					"PowderBlue", 
+					"LightBlue", 
+					"SkyBlue", 
+					"LightSkyBlue", 
+					"DeepSkyBlue", 
+					"DodgerBlue", 
+					"CornflowerBlue", 
+					"MediumSlateBlue", 
+					"RoyalBlue", 
+					"Blue", 
+					"MediumBlue", 
+					"DarkBlue", 
+					"Navy", 
+					"MidnightBlue", 
+					"White", 
+					"Snow", 
+					"Honeydew", 
+					"MintCream", 
+					"Azure", 
+					"AliceBlue", 
+					"GhostWhite", 
+					"WhiteSmoke", 
+					"Seashell", 
+					"Beige", 
+					"OldLace", 
+					"FloralWhite", 
+					"Ivory", 
+					"AntiqueWhite", 
+					"Linen", 
+					"LavenderBlush", 
+					"MistyRose", 
+					"Gainsboro", 
+					"LightGrey", 
+					"LightGray", 
+					"Silver", 
+					"DarkGray", 
+					"DarkGrey", 
+					"Gray", 
+					"Grey", 
+					"DimGray", 
+					"DimGrey", 
+					"LightSlateGray", 
+					"LightSlateGrey", 
+					"SlateGray", 
+					"SlateGrey", 
+					"DarkSlateGray", 
+					"DarkSlateGrey", 
+					"Black"]; 	
+		
+//Create and append select list
+//
+    var pick_colors = ["DarkOrange","ForestGreen","SlateGray","LightSeaGreen","HotPink","DarkOliveGreen","Coral", "LightSalmon"];
+	for ( let ii = 1; ii < 9; ii++ ) {
+		var selectList = document.createElement("select");
+		//selectList.style.backgroundColor = "gray";
+		let _id = String( ii );
+		selectList.id = "Select" + _id;
+		var td_color1 = document.getElementById('td_color' + _id);
+		if ( ii == 8 ) { document.getElementById('colorLine').appendChild(selectList); }
+			else { td_color1.appendChild(selectList); }
+
+		//Create and append the options
+		for (var i = 0; i < colors.length; i++) {
+			var option = document.createElement("option");
+			option.value = colors[i];
+			option.text = "🔲 " + colors[i];
+			option.style.color = colors[i];
+			selectList.appendChild(option);
+		}
+		selectList.value = pick_colors[ii-1];	
+	    selectList.parentNode.style.backgroundColor = pick_colors[ii-1];
+		
+		selectList.style.color = selectList.value.substring(0);			
+		selectList.addEventListener('change', (event) => {
+		  const color = event.target.value;
+		  event.target.style.color = color;
+		  event.target.parentNode.style.backgroundColor = color;	  
+		}, false);
+	}
+	
+	
+	
+	function drawExample() {
+	
+		let nn0 = new nndraw.NN();
+		var R = parseInt( document.getElementById('radius').value );
+		
+		var mode = 'svg';
+		if ( document.getElementById('mode_canvas').checked ) mode = 'canvas';
+		nn0.radius = R;
+		nn0.canvasFillColor = "#white";
+		var lineWidth = parseInt( document.getElementById('lineWidth').value );				
+		nn0.lineWidth = lineWidth;
+		var lineStrokeColor = document.getElementById('colorLine').children[0].value;
+		nn0.lineStrokeColor = lineStrokeColor;
+		var rx = parseInt( document.getElementById('rx').value );		
+		nn0.rx = rx;
+
+		// Get table element
+		let myTable = document.getElementById('table');
+
+		// Count table rows
+		let totalRowCount = myTable.rows.length;
+		//Create and append the options
+		for (var i = 1; i < totalRowCount; i++) {
+		   
+			let val = myTable.rows[i].cells[1].children[0];
+			if ( !val.checked ) break;
+		   
+			let count = parseInt( myTable.rows[i].cells[2].innerHTML );
+			val = myTable.rows[i].cells[3].children[0];
+			let geometry = "circle";
+			if ( val.checked ) geometry = "rectangle";
+			let color = myTable.rows[i].cells[4].children[0].value.substring(0);
+			let flag = false;
+			val = myTable.rows[i].cells[5].children[0];
+			if ( val.checked ) flag = true;
+			let layer = new nndraw.Layer(count, geometry, "#000000", color, flag);
+			nn0.add(layer);		
+			// Count table columns
+			//let totalColumnCount = myTable.rows[i].cells.length;
+
+		}
+		var div0 = document.getElementById('for_nn0');
+		nn0.draw(div0, mode);
+	}
+	
+	drawExample();
+	/*
+	let myTable = document.getElementById('table');
+	let cells = myTable.querySelectorAll('td');
+	for (var i = 0; i < cells.length; i++) {
+	  cells[i].addEventListener('blur', function (e) {
+		//console.log(e.target);
+		drawExample();
+	  });
+	}	
+	*/
+	var body = document.body;
+
+	body.addEventListener("keypress", function(event) {
+		//event.preventDefault();
+		if (event.keyCode == 13)
+			drawExample();
+	});
+
+</script>

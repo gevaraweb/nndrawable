@@ -4,13 +4,14 @@
  
 var nndraw = {};
 
-nndraw.Layer = function(count, form, StrokeColor, FillColor) {
+nndraw.Layer = function(count, form, StrokeColor, FillColor, full) {
     this.count = count;
     this.form = (form !== undefined) ? form.toLowerCase() : "circle";
     if (this.form != "circle" && this.form != "rectangle") this.form = "circle";
     this.form = form;
     this.StrokeColor = (StrokeColor !== undefined) ? StrokeColor : '#000000';
     this.FillColor = (FillColor !== undefined) ? FillColor : '#228B22';
+    this.full = (full !== undefined) ? full : true;	
 }
 
 nndraw.Layer.prototype = {
@@ -114,6 +115,7 @@ nndraw.NN.prototype = {
     draw: function(div, mode) {
         console.log('Start draw neural_network');
         this.div = div;
+		this.div.innerHTML = "";
         this._html = "";
         this.dim_layers = [];
         mod = (mode !== undefined) ? mode : "canvas";
@@ -121,12 +123,14 @@ nndraw.NN.prototype = {
         let R, maxCountX, maxCountY, sizex, sizey, countx, county, rx, ry, hx, hy;
         let arr_form = [],
             arr_StrokeColor = [],
-            arr_FillColor = [];
+            arr_FillColor = [], 
+			arr_full = [];
         for (let s = 0; s < this.layers.length; s++) {
             this.dim_layers.push(this.layers[s].count);
             arr_form.push(this.layers[s].form);
             arr_StrokeColor.push(this.layers[s].StrokeColor);
             arr_FillColor.push(this.layers[s].FillColor);
+			arr_full.push(this.layers[s].full);
         }
 
         maxCountX = this.dim_layers.length;
@@ -151,9 +155,21 @@ nndraw.NN.prototype = {
             let count_next = this.dim_layers[jj + 1];
 
             for (let j = 0; j < count; j++) {
+			
+				if ( arr_full[jj] == false ) {
+					if ( j == Math.floor(count / 2) ) continue;
+				}				
+				
                 let y_center = biasy + R + 2 * R * j + ry * j;
 
                 for (let jjj = 0; jjj < count_next; jjj++) {
+				
+					if (jj<this.dim_layers.length-1) {
+						if ( arr_full[jj+1] == false ) {
+							if ( jjj == Math.floor(count_next / 2) ) continue;
+						}
+					}
+				
                     let bloky_next = count_next * 2 * R + ry * (count_next - 1);
                     let biasy_next = (sizey - bloky_next) / 2;
                     let x_next = hx + R + (jj + 1) * (2 * R + rx);
@@ -178,6 +194,14 @@ nndraw.NN.prototype = {
             for (let j = 0; j < count; j++) {
                 let y_center = biasy + R + 2 * R * j + ry * j;
 
+				if ( arr_full[jj] == false ) {
+						if ( j == Math.floor(count / 2) ) {
+							this.DrawCircle(this.ctx, x_center, y_center - 2*ry, this.lineWidth, this.lineWidth, "black", "black", mode);
+							this.DrawCircle(this.ctx, x_center, y_center, this.lineWidth, this.lineWidth, "black", "black", mode);
+							this.DrawCircle(this.ctx, x_center, y_center + 2*ry, this.lineWidth, this.lineWidth, "black", "black", mode);
+							continue;
+						}
+					}
                 if (arr_form[jj] == "rectangle") {
                     this.DrawRect(this.ctx, x_center, y_center, R, R, this.lineWidth, arr_StrokeColor[jj], arr_FillColor[jj], mode);
                 } else {
@@ -189,10 +213,10 @@ nndraw.NN.prototype = {
 		
 		
         if (mod != "canvas") {
-            div.innerHTML = '<svg width="' + sizex + '" height="' + sizey + '">' + this._html + '</svg>';
-            div.style.width = sizex + "px";
-            div.style.height = sizey + "px";
-            div.style.backgroundColor = this.canvasFillColor;
+            this.div.innerHTML = '<svg width="' + sizex + '" height="' + sizey + '">' + this._html + '</svg>';
+            this.div.style.width = sizex + 11 + "px";
+            this.div.style.height = sizey + "px";
+            this.div.style.backgroundColor = this.canvasFillColor;
         }
     }
 

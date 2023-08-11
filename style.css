@@ -1,0 +1,76 @@
+ body {
+     margin: 5;
+     padding: 0;
+}
+ table {
+     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+     font-size: 14px;
+     border-radius: 10px;
+     border-spacing: 0;
+     text-align: center;
+     table-layout: fixed;
+     width2:100%;
+     max-width2:700px;
+     border-collapse: collapse;
+}
+ th {
+     background: #BCEBDD;
+     color: white;
+     text-shadow: 0 1px 1px #2D2020;
+     padding: 10px 7px;
+}
+ th, td {
+     border-style: solid;
+     border-width: 0 1px 1px 0;
+     border-color: white;
+}
+ th:first-child, td:first-child {
+     text-align: left;
+}
+ th:first-child {
+     border-top-left-radius: 10px;
+}
+ th:last-child {
+     border-top-right-radius: 10px;
+     border-right: none;
+}
+ td {
+     padding: 10px 10px;
+     background: #D3D3D3;
+}
+ tr:last-child td:first-child {
+     border-radius: 0 0 0 10px;
+}
+ tr:last-child td:last-child {
+     border-radius: 0 0 10px 0;
+}
+ tr td:last-child {
+     border-right: none;
+}
+ #colorLine {
+     padding: 10px 7px;
+}
+ #block1 {
+     float: left;
+     width: 510px;
+     border0: 1px solid blue;
+     padding: 0px;
+}
+ #for_nn0 {
+     margin-left: 510px;
+     border0: 1px solid blue;
+     padding: 0px;
+}
+#footer {
+    background: #8fa09b; /* Цвет фона подвала */
+    color: #fff; /* Цвет текста */
+	margin-top: 5px;
+    padding: 5px; /* Отступы вокруг текста */
+    clear: left; /* Отменяем действие float */
+    text-align: center; /* Выравнивание по центру */
+   }
+	pre {
+		font-size: 16px;
+		font-family: consolas;
+		font-weight: bold;
+	}
