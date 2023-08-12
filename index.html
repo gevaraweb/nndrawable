@@ -7,12 +7,15 @@
     <script type="text/javascript" src="nndrawable.js"></script>
 </head>
 <body>
-	<p>Здесь представлены примеры использования библиотеки nndrawable. 
+	<p>Здесь представлены примеры использования библиотеки nndrawable <a href="https://github.com/gevaraweb/nndrawable">(исходник на GitHub)</a>. 
 	<p>Интерфейс для рисования нейронной сети (без кодинга) можно посмотреть <a href="index2.html">здесь</a>.
 	<p>
 	<pre>
-	&lt;script type="text/javascript" src="https://gevaraweb.github.io/nndrawable.js"&gt;&lt;/script&gt;
+	&lt;script type="text/javascript" src="nndrawable.js"&gt;&lt;/script&gt;
 		...
+	<div id="for_nn1"></div>
+		...
+	&lt;script type="text/javascript"&gt;&lt;/script&gt;
 	let nn1 = new nndraw.NN();
 	
 	let layer1 = new nndraw.Layer(7);
@@ -26,6 +29,7 @@
 
 	var div1 = document.getElementById('for_nn1');
 	nn1.draw(div1);
+	&lt;/script&gt;
 	</pre>
 	<div id="for_nn1"></div>
 	<pre>
