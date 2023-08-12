@@ -1,5 +1,5 @@
 /**
- * @author Алмаз Вильданов / alvild@mail.com
+ * @author gevaraweb / gevaraweb@yandex.ru
  */
  
 var nndraw = {};
