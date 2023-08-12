@@ -62,15 +62,19 @@
      padding: 0px;
 }
 #footer {
-    background: #8fa09b; /* Цвет фона подвала */
-    color: #fff; /* Цвет текста */
+    background: #8fa09b; /* Г–ГўГҐГІ ГґГ®Г­Г  ГЇГ®Г¤ГўГ Г«Г  */
+    color: #fff; /* Г–ГўГҐГІ ГІГҐГЄГ±ГІГ  */
 	margin-top: 5px;
-    padding: 5px; /* Отступы вокруг текста */
-    clear: left; /* Отменяем действие float */
-    text-align: center; /* Выравнивание по центру */
+    padding: 5px; /* ГЋГІГ±ГІГіГЇГ» ГўГ®ГЄГ°ГіГЈ ГІГҐГЄГ±ГІГ  */
+    clear: left; /* ГЋГІГ¬ГҐГ­ГїГҐГ¬ Г¤ГҐГ©Г±ГІГўГЁГҐ float */
+    text-align: center; /* Г‚Г»Г°Г ГўГ­ГЁГўГ Г­ГЁГҐ ГЇГ® Г¶ГҐГ­ГІГ°Гі */
    }
-	pre {
-		font-size: 16px;
-		font-family: consolas;
-		font-weight: bold;
-	}
+pre {
+	font-size: 16px;
+	font-family: consolas;
+	font-weight: normal;
+}
+code {
+	font-family: "Courier New", "Courier", monospace;
+	color: #6a2cce;
+}
