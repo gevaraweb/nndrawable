@@ -25,7 +25,7 @@
 	   <tr>
 		  <td>Первый</td>
 		  <td><input type="checkbox" id="layer1" checked></td>
-		  <td contenteditable="true">7</td>
+		  <td contenteditable="true" class="dynamic">7</td>
 		  <td><input type="checkbox" checked></td>
 		  <td id="td_color1"></td>
 		  <td><input type="checkbox"></td>
@@ -33,7 +33,7 @@
 	   <tr>
 		  <td>Второй</td>
 		  <td><input type="checkbox" id="layer2" checked></td>
-		  <td contenteditable="true">9</td>
+		  <td contenteditable="true" class="dynamic">9</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color2"></td>
 		  <td><input type="checkbox"></td>
@@ -41,7 +41,7 @@
 	   <tr>
 		  <td>Третий</td>
 		  <td><input type="checkbox" id="layer3" checked></td>
-		  <td contenteditable="true">6</td>
+		  <td contenteditable="true" class="dynamic">6</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color3"></td>
 		  <td><input type="checkbox"></td>
@@ -49,7 +49,7 @@
 	   <tr>
 		  <td>Четвертый</td>
 		  <td><input type="checkbox" id="layer4" checked></td>
-		  <td contenteditable="true">5</td>
+		  <td contenteditable="true" class="dynamic">5</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color4"></td>
 		  <td><input type="checkbox" checked></td>
@@ -57,7 +57,7 @@
 	   <tr>
 		  <td>Пятый</td>
 		  <td><input type="checkbox" id="layer5"></td>
-		  <td contenteditable="true">3</td>
+		  <td contenteditable="true" class="dynamic">3</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color5"></td>
 		  <td><input type="checkbox" checked></td>
@@ -65,7 +65,7 @@
 	   <tr>
 		  <td>Шестой</td>
 		  <td><input type="checkbox" id="layer6"></td>
-		  <td contenteditable="true">2</td>
+		  <td contenteditable="true" class="dynamic">2</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color6"></td>
 		  <td><input type="checkbox" checked></td>
@@ -73,7 +73,7 @@
 	   <tr>
 		  <td>Седьмой</td>
 		  <td><input type="checkbox" id="layer6"></td>
-		  <td contenteditable="true">1</td>
+		  <td contenteditable="true" class="dynamic">1</td>
 		  <td><input type="checkbox"></td>
 		  <td id="td_color7"></td>
 		  <td><input type="checkbox" checked></td>
@@ -283,8 +283,16 @@
 		}, false);
 	}
 	
-	
-	
+	var elems = document.getElementsByClassName("dynamic");
+	for (var i=0; i<elems.length; i++) {
+		var el = elems[i];
+		el.addEventListener("keypress", function(event) {
+			if (event.keyCode == 13)
+				event.preventDefault();
+				return;
+				}.bind(el), false);
+	}
+
 	function drawExample() {
 	
 		let nn0 = new nndraw.NN();
